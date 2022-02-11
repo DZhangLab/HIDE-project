@@ -12,7 +12,7 @@ Failed commands
 > node enrollAdmin.js
 
 Error message for #3:
-> node-gyp rebuild || node suppress-error.js
+node-gyp rebuild || node suppress-error.js
 
 No receipt for 'com.apple.pkg.CLTools_Executables' found at ‘/‘.
 No receipt for 'com.apple.pkg.DeveloperToolsCLILeo' found at '/'.

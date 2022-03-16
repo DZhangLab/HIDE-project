@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import "../css/bootstrap.css";
 import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
-// May need to pdate on deployment. This is the address the contract is deployed to.\
+// May need to update on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 
 const Insert = () => {
@@ -18,10 +18,16 @@ const Insert = () => {
 
   // call to the insert method of the smart contract
   async function insert() {
-    // making sure input is not empty
-    if (!did || !contractKey) {
-      console.log("Insert values are empty");
-      setResult(`Insert Values are empty`);
+    // make sure input for did is not empty 
+    if (!did) {
+      console.log("Insert value for did is empty");
+      setResult(`Insert value for did is empty`);
+      return;
+    }
+    // make sure input for contractKey is not empty
+    if (!contractKey) {
+      console.log("Insert value for contractKey is empty");
+      setResult(`Insert value for contractKey is empty`);
       return;
     }
     if (typeof window.ethereum !== "undefined") {

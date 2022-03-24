@@ -16,6 +16,39 @@ const Insert = () => {
     await window.ethereum.request({ method: "eth_requestAccounts" });
   }
 
+
+  // verification for the did
+  function checkDid(inputtxt){ 
+
+    // 6 to 30 characters which contain only characters, numeric digits and underscore and first character must be a letter.
+    var passw=  /^[A-Za-z]\w{6,28}$/;
+
+    if(inputtxt.match(passw)){ 
+      console.log("Good did")
+      return true;
+    }
+    else{ 
+      console.log("Bad did")
+      return false;
+    }
+  }
+
+  // verification for the contractKey
+  function checkContractKey(inputtxt) { 
+
+    //6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter
+    var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+
+    if(inputtxt.match(passw)) {
+      console.log("Good Password")
+      return true;
+    }
+    else{ 
+      console.log("Bad Password")
+      return false;
+    }
+  }
+
   // call to the insert method of the smart contract
   async function insert() {
     // making sure input is not empty
@@ -24,6 +57,21 @@ const Insert = () => {
       setResult(`Insert Values are empty`);
       return;
     }
+
+    // Ensures the did meets the verification
+    if(!checkDid(did)){
+      setResult(`DID does not satisfy: 
+      6 to 30 characters which contain only characters, numeric digits and underscore and first character must be a letter`);
+      return;
+    } 
+
+    // Ensures the contract key meets the verification
+    if(!checkContractKey(contractKey)){
+      setResult(`Contract key does not satisfy: 
+      6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter`);
+      return;
+    } 
+
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
       const provider = new ethers.providers.Web3Provider(window.ethereum);

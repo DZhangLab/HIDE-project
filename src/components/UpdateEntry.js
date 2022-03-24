@@ -69,7 +69,7 @@ const UpdateEntry = () => {
           placeholder="New Value"
           onChange={(e) => setKey(e.target.value)}
         />
-        <button class="btn btn-outline-secondary" onClick={updateEntry}>
+        <button className="btn btn-outline-secondary" onClick={updateEntry}>
           Update Entry
         </button>
         {result}

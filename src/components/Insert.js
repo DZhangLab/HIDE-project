@@ -118,7 +118,7 @@ const Insert = () => {
           placeholder="Set Key"
           onChange={(e) => setContractKey(e.target.value)}
         />
-        <button class="btn btn-outline-secondary" onClick={insert}>
+        <button className="btn btn-outline-secondary" onClick={insert}>
           Insert Entry
         </button>
         {result}

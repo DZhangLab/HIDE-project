@@ -53,7 +53,7 @@ const GetEntry = () => {
           placeholder="DID"
           onChange={(e) => setDid(e.target.value)}
         />
-        <button class="btn btn-outline-secondary" onClick={getEntry}>
+        <button className="btn btn-outline-secondary" onClick={getEntry}>
           Get Entry
         </button>
         {result}

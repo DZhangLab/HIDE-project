@@ -62,7 +62,7 @@ const DeleteEntry = () => {
           placeholder="Set DID"
           onChange={(e) => setDid(e.target.value)}
         />
-        <button class="btn btn-outline-secondary" onClick={deleteEntry}>
+        <button className="btn btn-outline-secondary" onClick={deleteEntry}>
           Delete Entry
         </button>
         {result}

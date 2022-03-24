@@ -46,7 +46,7 @@ const Insert = () => {
         const transaction = await contract.insert(did, contractKey); //is there a way to get return value
         // of non view function?
         await transaction.wait();
-        // console.log({ transaction });
+        console.log({ transaction });
       } catch (err) {
         console.log("Error: ", err);
         setResult("Error. Check console");

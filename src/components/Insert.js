@@ -36,14 +36,14 @@ const Insert = () => {
       );
 
       // Listening for the emmitted event
-      contract.on("EntryEvent", (did, contractKey) => {
+      contract.on("EntryInserted", (did, contractKey) => {
         setResult(
           `Event caught. Transaction with did: ${did} and key: ${contractKey}`
         );
       });
 
       try {
-        const transaction = await contract.insert(did, contractKey); //is there a way to get return value
+        const transaction = await contract.insertUser(did, contractKey); //is there a way to get return value
         // of non view function?
         await transaction.wait();
         console.log({ transaction });

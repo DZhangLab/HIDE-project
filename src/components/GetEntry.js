@@ -33,7 +33,7 @@ const GetEntry = () => {
         provider
       );
       try {
-        const data = await contract.getEntry(did);
+        const data = await contract.getUser(did);
         console.log({ data });
         setResult(`Retrieved Did: ${data[0]} with Key: ${data[1]}`);
       } catch (err) {

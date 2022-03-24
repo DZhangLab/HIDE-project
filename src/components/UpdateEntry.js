@@ -1,3 +1,5 @@
+//updateEntry FROM Registry.sol NOT IN THE ABI ARRAY SO THIS FUNCTION CURRENTLY CAN NOT BE CALLED
+
 import { useState } from "react";
 import { ethers } from "ethers";
 import "../css/bootstrap.css";
@@ -6,8 +8,9 @@ import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.j
 // May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 
-const DeleteEntry = () => {
+const UpdateEntry = () => {
   const [did, setDid] = useState("");
+  const [key, setKey] = useState("");
   const [result, setResult] = useState("");
 
   // uses metamask injected browser window to make sure user has a connected account
@@ -16,7 +19,7 @@ const DeleteEntry = () => {
   }
 
   // call to the insert method of the smart contract
-  async function deleteEntry() {
+  async function updateEntry() {
     // making sure input is not empty
     if (!did) {
       console.log("Insert values are empty");
@@ -35,14 +38,12 @@ const DeleteEntry = () => {
       );
 
       // Listening for the emmitted event
-      contract.on("EntryDeleted", (did) => {
-        setResult(`Event caught. Delete with did: ${did}`);
+      contract.on("EntryUpdated", (did, key) => {
+        setResult(`Event caught. Updated the did: ${did} with value: ${key}`);
       });
 
       try {
-        // TODO: Solidity function should have a require or check before this event is emmitted. Can't tell if it was successful
-        const transaction = await contract.deleteUser(did); //is there a way to get return value
-        // of non view function?
+        const transaction = await contract.updateEntry(did, key);
         await transaction.wait();
         // console.log({ transaction });
       } catch (err) {
@@ -55,15 +56,21 @@ const DeleteEntry = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>Delete User Entry</h2>
+        <h2>Update User Entry</h2>
         <input
           type="text"
           required
           placeholder="Set DID"
           onChange={(e) => setDid(e.target.value)}
         />
-        <button class="btn btn-outline-secondary" onClick={deleteEntry}>
-          Delete Entry
+        <input
+          type="text"
+          required
+          placeholder="New Value"
+          onChange={(e) => setKey(e.target.value)}
+        />
+        <button class="btn btn-outline-secondary" onClick={updateEntry}>
+          Update Entry
         </button>
         {result}
       </header>
@@ -71,4 +78,4 @@ const DeleteEntry = () => {
   );
 };
 
-export default DeleteEntry;
+export default UpdateEntry;

@@ -3,12 +3,18 @@
 const hre = require("hardhat");
 
 async function main() {
-  // We get the contract to deploy
-  const UserRegistry = await hre.ethers.getContractFactory("UserRegistry");
+  const NullCheckLib = await hre.ethers.getContractFactory("NullCheck");
+  const nullCheckLib = await NullCheckLib.deploy();
+
+  // Deploying the UserRegistry
+  const UserRegistry = await hre.ethers.getContractFactory("UserRegistry", {
+    libraries: {
+      NullCheck: nullCheckLib.address,
+    },
+  });
   const userRegistry = await UserRegistry.deploy();
 
   await userRegistry.deployed();
-
   console.log("User registry deployed to:", userRegistry.address);
 }
 

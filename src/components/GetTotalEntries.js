@@ -39,7 +39,7 @@ const GetTotalEntries = () => {
     <div className="App">
       <header className="App-header">
         <h2>Get Total Entries</h2>
-        <button class="btn btn-outline-secondary" onClick={getTotalEntries}>
+        <button className="btn btn-outline-secondary" onClick={getTotalEntries}>
           Entry Count
         </button>
         {result}

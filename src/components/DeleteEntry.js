@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import "../css/bootstrap.css";
 import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
-// May need to update on deployment. This is the address the contract is deployed to.\
+// May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 
 const DeleteEntry = () => {
@@ -19,8 +19,8 @@ const DeleteEntry = () => {
   async function deleteEntry() {
     // making sure input is not empty
     if (!did) {
-      console.log("DeleteEntry value for did is empty");
-      setResult(`DeleteEntry value for did is empty`);
+      console.log("Insert values are empty");
+      setResult(`Insert Values are empty`);
       return;
     }
     if (typeof window.ethereum !== "undefined") {
@@ -35,13 +35,13 @@ const DeleteEntry = () => {
       );
 
       // Listening for the emmitted event
-      contract.on("EntryDelete", (did) => {
+      contract.on("EntryDeleted", (did) => {
         setResult(`Event caught. Delete with did: ${did}`);
       });
 
       try {
         // TODO: Solidity function should have a require or check before this event is emmitted. Can't tell if it was successful
-        const transaction = await contract.deleteEntry(did); //is there a way to get return value
+        const transaction = await contract.deleteUser(did); //is there a way to get return value
         // of non view function?
         await transaction.wait();
         // console.log({ transaction });
@@ -62,7 +62,7 @@ const DeleteEntry = () => {
           placeholder="Set DID"
           onChange={(e) => setDid(e.target.value)}
         />
-        <button class="btn btn-outline-secondary" onClick={deleteEntry}>
+        <button className="btn btn-outline-secondary" onClick={deleteEntry}>
           Delete Entry
         </button>
         {result}

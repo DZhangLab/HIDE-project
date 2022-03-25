@@ -18,7 +18,12 @@ npx hardhat run scripts/deploy.js --network localhost
 ```
 Change the REACT_APP_DEPLOY_ADDRESS in .env to the new deployed address
 
-I will deploy this smart contract to the Ropsten test network soon. So it wil be also possible to access that way.
+To run on the ropsten test network, change accounts: [] in hardhat.config.js to your exported private key Ropsten Test Network metamask account.
+Enter the command:
+```shell
+npx hardhat run scripts/deploy.js --network ropsten
+```
+You will need to change the deployed address in .env given the deployed address shown in terminal.
 
 4) Connect a hardhat account to metamask. Open metamask, change network to localhost:8545, import account, and paste a private key from an address supplied by the hardhat node. Tha balance should be ~10000 eth.
 

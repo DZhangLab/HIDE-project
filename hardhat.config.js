@@ -25,5 +25,12 @@ module.exports = {
     hardhat: {
       chainId: 1337,
     },
+    ropsten: {
+      url: "https://eth-ropsten.alchemyapi.io/v2/I2h5P8VD34mmnf2GwRaccKZ6UNfk-TNZ",
+      accounts: [
+        //my exported private key from metamask, you would need to use your own
+        "26cabf3e8ced22eb728d43e3ef169a179e4648bea78350f215ee4c2c36f22a59",
+      ],
+    },
   },
 };

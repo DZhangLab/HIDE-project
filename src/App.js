@@ -1,5 +1,11 @@
 import "./App.css";
-import { Insert, GetEntry, GetTotalEntries, DeleteEntry } from "./components";
+import {
+  Insert,
+  GetEntry,
+  GetTotalEntries,
+  DeleteEntry,
+  UpdateEntry,
+} from "./components";
 import "./css/bootstrap.css";
 
 const App = () => {

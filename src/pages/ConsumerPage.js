@@ -1,4 +1,4 @@
-import { InsertConsumer } from "../components";
+import { InsertConsumer, GetConsumer, UpdateConsumer, DeleteConsumer, VerifyAttestationWithSig, TotalConsumers } from "../components";
 import "../css/bootstrap.css";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,16 @@ const ConsumerPage = () => {
         </Link>
         <br></br>
         <InsertConsumer></InsertConsumer>
+        <br></br>
+        <GetConsumer></GetConsumer>
+        <br></br>
+        <UpdateConsumer></UpdateConsumer>
+        <br></br>
+        <DeleteConsumer></DeleteConsumer>
+        <br></br>
+        <TotalConsumers></TotalConsumers>
+        <br></br>
+        <VerifyAttestationWithSig></VerifyAttestationWithSig>
         <br></br>
       </header>
     </div>

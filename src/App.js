@@ -1,28 +1,26 @@
 import "./App.css";
-import {
-  Insert,
-  GetEntry,
-  GetTotalEntries,
-  DeleteEntry,
-  UpdateEntry,
-} from "./components";
+import Home from "./pages/Home";
+import UserPage from "./pages/UserPage";
+import ConsumerPage from "./pages/ConsumerPage";
 import "./css/bootstrap.css";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+} from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>User Registry Basic DApp</h1>
-        <br></br>
-        <Insert></Insert>
-        <br></br>
-        <GetEntry></GetEntry>
-        <br></br>
-        <DeleteEntry></DeleteEntry>
-        <br></br>
-        <GetTotalEntries></GetTotalEntries>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/ur" element={<UserPage />} />
+          <Route path="/cr" element={<ConsumerPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

@@ -5,6 +5,7 @@ import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.j
 
 // May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
+const verificationNum = process.env.REACT_APP_VERIFICATION;
 
 const Insert = () => {
   const [did, setDid] = useState("");
@@ -16,35 +17,31 @@ const Insert = () => {
     await window.ethereum.request({ method: "eth_requestAccounts" });
   }
 
-
   // verification for the did
-  function checkDid(inputtxt){ 
-
+  function checkDid(inputtxt) {
     // 6 to 30 characters which contain only characters, numeric digits and underscore and first character must be a letter.
-    var passw=  /^[A-Za-z]\w{6,28}$/;
+    // var passw=  /^[A-Za-z]\w{6,28}$/;
 
-    if(inputtxt.match(passw)){ 
-      console.log("Good did")
+    // greater than 24 characters
+    if (inputtxt.length >= verificationNum) {
+      console.log("Good did");
       return true;
-    }
-    else{ 
-      console.log("Bad did")
+    } else {
+      console.log("Bad did");
       return false;
     }
   }
 
   // verification for the contractKey
-  function checkContractKey(inputtxt) { 
-
+  function checkContractKey(inputtxt) {
     //6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter
-    var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    // var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
-    if(inputtxt.match(passw)) {
-      console.log("Good Password")
+    if (inputtxt.length >= verificationNum) {
+      console.log("Good contract key");
       return true;
-    }
-    else{ 
-      console.log("Bad Password")
+    } else {
+      console.log("Bad contract key");
       return false;
     }
   }
@@ -59,18 +56,20 @@ const Insert = () => {
     }
 
     // Ensures the did meets the verification
-    if(!checkDid(did)){
-      setResult(`DID does not satisfy: 
-      6 to 30 characters which contain only characters, numeric digits and underscore and first character must be a letter`);
+    if (!checkDid(did)) {
+      setResult(
+        `DID of length ${did.length} needs to be at least ${verificationNum}`
+      );
       return;
-    } 
+    }
 
     // Ensures the contract key meets the verification
-    if(!checkContractKey(contractKey)){
-      setResult(`Contract key does not satisfy: 
-      6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter`);
+    if (!checkContractKey(contractKey)) {
+      setResult(
+        `Contract key of length ${contractKey.length} needs to be at least  ${verificationNum}`
+      );
       return;
-    } 
+    }
 
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();

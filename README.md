@@ -12,6 +12,7 @@ or manually with
 ```shell
 npm install ethers hardhat @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers
 npm install react-router-dom
+npm install bootstrap react-bootstrap
 ```
 2) Start a hardhat node (keep this terminal open)
 ```shell

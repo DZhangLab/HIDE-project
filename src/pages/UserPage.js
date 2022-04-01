@@ -13,9 +13,6 @@ const UserPage = () => {
     <div className="App">
       <header className="App-header">
         <h1>User Registry Basic DApp</h1>
-        <Link to="/">
-          <p>back</p>
-        </Link>
         <br></br>
         <Insert></Insert>
         <br></br>

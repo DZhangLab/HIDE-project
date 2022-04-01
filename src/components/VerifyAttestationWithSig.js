@@ -28,7 +28,7 @@ const VerifyAttestationWithSig = () => {
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      
+
       const contract = new ethers.Contract(
         consumerRegistryAddress,
         ConsumerRegistry.abi,
@@ -36,12 +36,14 @@ const VerifyAttestationWithSig = () => {
       );
 
       try {
-        const data = await contract.verifyAttestationWithSig(did, attestationSig);
-        if(data){
-            setResult(`Function returned true`)
-        }
-        else{
-            setResult(`Function returned false`)
+        const data = await contract.verifyAttestationWithSig(
+          did,
+          attestationSig
+        );
+        if (data) {
+          setResult(`Function returned true`);
+        } else {
+          setResult(`Function returned false`);
         }
       } catch (err) {
         console.log("Error: ", err);
@@ -69,7 +71,6 @@ const VerifyAttestationWithSig = () => {
         <button className="btn btn-outline-secondary" onClick={verify}>
           Verify Consumer
         </button>
-        {result}
       </header>
     </div>
   );

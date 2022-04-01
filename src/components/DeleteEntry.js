@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import "../css/bootstrap.css";
 import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
-// May need to pdate on deployment. This is the address the contract is deployed to.\
+// May need to update on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 
 const DeleteEntry = () => {
@@ -19,8 +19,8 @@ const DeleteEntry = () => {
   async function deleteEntry() {
     // making sure input is not empty
     if (!did) {
-      console.log("Insert values are empty");
-      setResult(`Insert Values are empty`);
+      console.log("DeleteEntry value for did is empty");
+      setResult(`DeleteEntry value for did is empty`);
       return;
     }
     if (typeof window.ethereum !== "undefined") {

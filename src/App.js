@@ -5,6 +5,7 @@ import ConsumerPage from "./pages/ConsumerPage";
 import logo from "./images/hidelogo.png";
 import "./css/bootstrap.css";
 import { Navbar, Nav } from "react-bootstrap";
+import "./css/bootstrap.css";
 
 import {
   BrowserRouter as Router,
@@ -44,6 +45,7 @@ const App = () => {
             </div>
           </Nav>
         </Navbar>
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/ur" element={<UserPage />} />

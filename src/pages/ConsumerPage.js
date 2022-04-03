@@ -1,3 +1,4 @@
+
 import {
   InsertConsumer,
   GetConsumer,
@@ -6,6 +7,7 @@ import {
   VerifyAttestationWithSig,
   TotalConsumers,
 } from "../components";
+
 import "../css/bootstrap.css";
 import { Link } from "react-router-dom";
 

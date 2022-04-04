@@ -1,4 +1,13 @@
-import { InsertConsumer, GetConsumer, UpdateConsumer, DeleteConsumer, VerifyAttestationWithSig, TotalConsumers } from "../components";
+
+import {
+  InsertConsumer,
+  GetConsumer,
+  UpdateConsumer,
+  DeleteConsumer,
+  VerifyAttestationWithSig,
+  TotalConsumers,
+} from "../components";
+
 import "../css/bootstrap.css";
 import { Link } from "react-router-dom";
 
@@ -6,10 +15,7 @@ const ConsumerPage = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Consumer Registry Basic DApp</h1>
-        <Link to="/">
-          <p>back</p>
-        </Link>
+        <h1> Consumer Registry Basic DApp</h1>
         <br></br>
         <InsertConsumer></InsertConsumer>
         <br></br>

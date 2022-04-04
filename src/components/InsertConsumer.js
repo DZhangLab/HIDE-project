@@ -11,6 +11,7 @@ const InsertConsumer = () => {
   const [did, setDid] = useState("");
   const [contractKey, setContractKey] = useState("");
   const [result, setResult] = useState("");
+  const [show, setShow] = useState(false);
 
   // uses metamask injected browser window to make sure consumer has a connected account
   async function requestAccount() {
@@ -117,10 +118,27 @@ const InsertConsumer = () => {
           placeholder="Set Key"
           onChange={(e) => setContractKey(e.target.value)}
         />
-        <button className="btn btn-outline-secondary" onClick={insert}>
-          Insert Entry
-        </button>
-        {result}
+        <div>
+          <button className="btn btn-outline-secondary" onClick={insert}>
+            Insert Entry
+          </button>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => setShow(!show)}
+          >
+            Show/Hide
+          </button>
+        </div>
+        <div>
+          {show ? (
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Transaction Data</h5>
+                <p class="card-text">{result}</p>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </header>
     </div>
   );

@@ -1,28 +1,20 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import "../css/bootstrap.css";
+import "../../css/bootstrap.css";
 
-import ConsumerRegistry from "../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
+import ConsumerRegistry from "../../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
 
 const consumerRegistryAddress = process.env.REACT_APP_CONSUMER_ADDRESS;
 
-const GetConsumer = () => {
-  const [did, setDid] = useState("");
+const TotalConsumers = () => {
   const [result, setResult] = useState("");
-
   // uses metamask injected browser window to make sure consumer has a connected account
   async function requestAccount() {
     await window.ethereum.request({ method: "eth_requestAccounts" });
   }
 
   // call to the insert method of the smart contract
-  async function getConsumer() {
-    // making sure input is not empty
-    if (!did) {
-      console.log("Insert values are empty");
-      setResult(`Insert Values are empty`);
-      return;
-    }
+  async function getTotalEntries() {
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -33,9 +25,9 @@ const GetConsumer = () => {
         provider
       );
       try {
-        const data = await contract.getConsumer(did);
+        const data = await contract.getTotalEntries();
         console.log({ data });
-        setResult(`Retrieved Did: ${data[0]} with Key: ${data[1]}`);
+        setResult(`Total Entries: ${data}`);
       } catch (err) {
         console.log("Error: ", err);
         setResult("Error. Check console");
@@ -46,15 +38,9 @@ const GetConsumer = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>Get Consumer Entry With Consumer DID</h2>
-        <input
-          type="text"
-          required
-          placeholder="DID"
-          onChange={(e) => setDid(e.target.value)}
-        />
-        <button className="btn btn-outline-secondary" onClick={getConsumer}>
-          Get Consumer
+        <h2>Get Total Entries</h2>
+        <button className="btn btn-outline-secondary" onClick={getTotalEntries}>
+          Entry Count
         </button>
         {result}
       </header>
@@ -62,4 +48,4 @@ const GetConsumer = () => {
   );
 };
 
-export default GetConsumer;
+export default TotalConsumers;

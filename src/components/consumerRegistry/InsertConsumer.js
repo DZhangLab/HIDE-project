@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import "../css/bootstrap.css";
-import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
+import "../../css/bootstrap.css";
+import ConsumerRegistry from "../../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
 
-// May need to update on deployment. This is the address the contract is deployed to.\
-const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
+// May need to pdate on deployment. This is the address the contract is deployed to.\
+const consumerRegistryAddress = process.env.REACT_APP_CONSUMER_ADDRESS;
 const verificationNum = process.env.REACT_APP_VERIFICATION;
 
-const Insert = () => {
+const InsertConsumer = () => {
   const [did, setDid] = useState("");
   const [contractKey, setContractKey] = useState("");
   const [result, setResult] = useState("");
   const [show, setShow] = useState(false);
 
-  // uses metamask injected browser window to make sure user has a connected account
+  // uses metamask injected browser window to make sure consumer has a connected account
   async function requestAccount() {
     await window.ethereum.request({ method: "eth_requestAccounts" });
   }
@@ -49,16 +49,10 @@ const Insert = () => {
 
   // call to the insert method of the smart contract
   async function insert() {
-    // make sure input for did is not empty
-    if (!did) {
-      console.log("Insert value for did is empty");
-      setResult(`Insert value for did is empty`);
-      return;
-    }
-    // make sure input for contractKey is not empty
-    if (!contractKey) {
-      console.log("Insert value for contractKey is empty");
-      setResult(`Insert value for contractKey is empty`);
+    // making sure input is not empty
+    if (!did || !contractKey) {
+      console.log("Insert values are empty");
+      setResult(`Insert Values are empty`);
       return;
     }
 
@@ -84,8 +78,8 @@ const Insert = () => {
       // we need a signer because insert requires a transaction
       const signer = provider.getSigner();
       const contract = new ethers.Contract(
-        userRegistryAddress,
-        UserRegistry.abi,
+        consumerRegistryAddress,
+        ConsumerRegistry.abi,
         signer
       );
 
@@ -97,7 +91,7 @@ const Insert = () => {
       });
 
       try {
-        const transaction = await contract.insertUser(did, contractKey); //is there a way to get return value
+        const transaction = await contract.insertConsumer(did, contractKey); //is there a way to get return value
         // of non view function?
         await transaction.wait();
         console.log({ transaction });
@@ -111,7 +105,7 @@ const Insert = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>Insert User to User Regristry</h2>
+        <h2>Insert Consumer to Consumer Registry</h2>
         <input
           type="text"
           required
@@ -150,4 +144,4 @@ const Insert = () => {
   );
 };
 
-export default Insert;
+export default InsertConsumer;

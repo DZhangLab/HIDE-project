@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import "../css/bootstrap.css";
-import ConsumerRegistry from "../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
+import "../../css/bootstrap.css";
+import ConsumerRegistry from "../../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
 
 const consumerRegistryAddress = process.env.REACT_APP_CONSUMER_ADDRESS;
 const verificationNum = process.env.REACT_APP_VERIFICATION;
@@ -11,10 +11,9 @@ const UpdateEntry = () => {
   const [key, setKey] = useState("");
   const [result, setResult] = useState("");
 
-
- // Not necesarily needed as the did must exist already, so it will satsisfy this condition
- // verification for the did
- function checkDid(inputtxt) {
+  // Not necesarily needed as the did must exist already, so it will satsisfy this condition
+  // verification for the did
+  function checkDid(inputtxt) {
     // 6 to 30 characters which contain only characters, numeric digits and underscore and first character must be a letter.
     // var passw=  /^[A-Za-z]\w{6,28}$/;
 
@@ -56,21 +55,21 @@ const UpdateEntry = () => {
       return;
     }
 
-     // Ensures the did meets the verification
-     if (!checkDid(did)) {
-        setResult(
-          `DID of length ${did.length} needs to be at least ${verificationNum}`
-        );
-        return;
-      }
-  
-      // Ensures the contract key meets the verification
-      if (!checkContractKey(key)) {
-        setResult(
-          `Contract key of length ${key.length} needs to be at least  ${verificationNum}`
-        );
-        return;
-      }
+    // Ensures the did meets the verification
+    if (!checkDid(did)) {
+      setResult(
+        `DID of length ${did.length} needs to be at least ${verificationNum}`
+      );
+      return;
+    }
+
+    // Ensures the contract key meets the verification
+    if (!checkContractKey(key)) {
+      setResult(
+        `Contract key of length ${key.length} needs to be at least  ${verificationNum}`
+      );
+      return;
+    }
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
       const provider = new ethers.providers.Web3Provider(window.ethereum);

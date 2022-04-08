@@ -19,8 +19,8 @@ const GetEntry = () => {
   async function getEntry() {
     // making sure input is not empty
     if (!did) {
-      console.log("GetEntry value for did is empty");
-      setResult(`GetEntry value for did is empty`);
+      console.log("Insert values are empty");
+      setResult(`Insert Values are empty`);
       return;
     }
     if (typeof window.ethereum !== "undefined") {

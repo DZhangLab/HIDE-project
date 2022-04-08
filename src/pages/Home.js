@@ -44,6 +44,7 @@ const Home = () => {
           </Link>
         </header>
       </div>
+
     </div>
   );
 };

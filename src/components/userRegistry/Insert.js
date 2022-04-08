@@ -5,7 +5,7 @@ import QRCode from "qrcode";
 import QRCodeNew from "./qrcodeNew";
 import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
-// May need to update on deployment. This is the address the contract is deployed to.\
+// May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 const verificationNum = process.env.REACT_APP_VERIFICATION;
 
@@ -52,16 +52,11 @@ const Insert = () => {
 
   // call to the insert method of the smart contract
   async function insert() {
-    // make sure input for did is not empty
-    if (!did) {
-      console.log("Insert value for did is empty");
-      setResult(`Insert value for did is empty`);
-      return;
-    }
-    // make sure input for contractKey is not empty
-    if (!contractKey) {
-      console.log("Insert value for contractKey is empty");
-      setResult(`Insert value for contractKey is empty`);
+
+    // making sure input is not empty
+    if (!did || !contractKey) {
+      console.log("Insert values are empty");
+      setResult(`Insert Values are empty`);
       return;
     }
 

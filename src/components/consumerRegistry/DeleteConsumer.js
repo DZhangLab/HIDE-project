@@ -3,7 +3,8 @@ import { ethers } from "ethers";
 import "../../css/bootstrap.css";
 import ConsumerRegistry from "../../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
 
-// May need to pdate on deployment. This is the address the contract is deployed to.\
+
+// May need to update on deployment. This is the address the contract is deployed to.\
 const consumerRegistryAddress = process.env.REACT_APP_CONSUMER_ADDRESS;
 
 const DeleteConsumer = () => {
@@ -71,3 +72,5 @@ const DeleteConsumer = () => {
 };
 
 export default DeleteConsumer;
+
+

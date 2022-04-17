@@ -12,7 +12,7 @@ const QRCodeNew = ({ text }) => {
     QRCode.toDataURL(text).then((data) => {
       setSrc(data);
     });
-  }, []);
+  }, [text]);
 
   return (
     <div>

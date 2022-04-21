@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import "../css/bootstrap.css";
+import "../../css/bootstrap.css";
+import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
-import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
-
+// May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 
-const GetEntry = () => {
+const DeleteEntry = () => {
   const [did, setDid] = useState("");
   const [result, setResult] = useState("");
 
@@ -16,7 +16,7 @@ const GetEntry = () => {
   }
 
   // call to the insert method of the smart contract
-  async function getEntry() {
+  async function deleteEntry() {
     // making sure input is not empty
     if (!did) {
       console.log("Insert values are empty");
@@ -26,16 +26,24 @@ const GetEntry = () => {
     if (typeof window.ethereum !== "undefined") {
       await requestAccount();
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      // we do not need a signer because getEntry is view
+      // we need a signer because insert requires a transaction
+      const signer = provider.getSigner();
       const contract = new ethers.Contract(
         userRegistryAddress,
         UserRegistry.abi,
-        provider
+        signer
       );
+
+      // Listening for the emmitted event
+      contract.on("EntryDeleted", (did) => {
+        setResult(`Event caught. Delete with did: ${did}`);
+      });
+
       try {
-        const data = await contract.getUser(did);
-        console.log({ data });
-        setResult(`Retrieved Did: ${data[0]} with Key: ${data[1]}`);
+        const transaction = await contract.deleteUser(did); //is there a way to get return value
+        // of non view function?
+        await transaction.wait();
+        // console.log({ transaction });
       } catch (err) {
         console.log("Error: ", err);
         setResult("Error. Check console");
@@ -46,15 +54,15 @@ const GetEntry = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>Get Entry With User DID</h2>
+        <h2>Delete User Entry</h2>
         <input
           type="text"
           required
-          placeholder="DID"
+          placeholder="Set DID"
           onChange={(e) => setDid(e.target.value)}
         />
-        <button className="btn btn-outline-secondary" onClick={getEntry}>
-          Get Entry
+        <button className="btn btn-outline-secondary" onClick={deleteEntry}>
+          Delete Entry
         </button>
         {result}
       </header>
@@ -62,4 +70,4 @@ const GetEntry = () => {
   );
 };
 
-export default GetEntry;
+export default DeleteEntry;

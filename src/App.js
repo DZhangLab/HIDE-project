@@ -2,6 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import UserPage from "./pages/UserPage";
 import ConsumerPage from "./pages/ConsumerPage";
+import VerifierPage from "./pages/VerifierPage";
 import logo from "./images/hidelogo.png";
 import "./css/bootstrap.css";
 import { Navbar, Nav } from "react-bootstrap";
@@ -41,6 +42,11 @@ const App = () => {
                     <h3>Consumer Registry</h3>
                   </Link>
                 </div>
+                <div class="col-sm">
+                  <Link to="/vr">
+                    <h3>Verifier Registry</h3>
+                  </Link>
+                </div>
               </div>
             </div>
           </Nav>
@@ -50,6 +56,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/ur" element={<UserPage />} />
           <Route path="/cr" element={<ConsumerPage />} />
+          <Route path="/vr" element={<VerifierPage />} />
         </Routes>
       </div>
     </Router>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import "../css/bootstrap.css";
+import "../../css/bootstrap.css";
 
-import UserRegistry from "../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
+import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 

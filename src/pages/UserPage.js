@@ -3,6 +3,7 @@ import {
   GetEntry,
   GetTotalEntries,
   DeleteEntry,
+  QRCode,
   UpdateEntry,
 } from "../components";
 import "../css/bootstrap.css";

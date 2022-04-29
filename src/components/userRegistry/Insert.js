@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import "../../css/bootstrap.css";
-import QRCode from "qrcode";
 import QRCodeNew from "./qrcodeNew";
 import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
 
@@ -11,6 +10,7 @@ const verificationNum = process.env.REACT_APP_VERIFICATION;
 
 const Insert = () => {
   const [did, setDid] = useState("");
+  const [submit, setSubmit] = useState("");
   const [contractKey, setContractKey] = useState("");
   const [result, setResult] = useState("");
   const [show, setShow] = useState(false);
@@ -98,9 +98,7 @@ const Insert = () => {
         const transaction = await contract.insertUser(did, contractKey); //is there a way to get return value
         // of non view function?
         await transaction.wait();
-        QRCode.toDataURL(did).then((data) => {
-          setSrc(data);
-        });
+        setSubmit(did);
         console.log({ transaction });
       } catch (err) {
         console.log("Error: ", err);
@@ -142,7 +140,7 @@ const Insert = () => {
               <div class="card-body">
                 <h5 class="card-title">Transaction Data</h5>
                 <p class="card-text">{result}</p>
-                <img src={src} />
+                <QRCodeNew text={submit}/>
               </div>
             </div>
           ) : null}

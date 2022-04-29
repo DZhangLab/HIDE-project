@@ -2,6 +2,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import UserPage from "./pages/UserPage";
 import ConsumerPage from "./pages/ConsumerPage";
+import IpfsPage from "./pages/IpfsPage";
 import logo from "./images/hidelogo.png";
 import "./css/bootstrap.css";
 import { Navbar, Nav } from "react-bootstrap";
@@ -24,21 +25,26 @@ const App = () => {
             <img width="75px" src={logo} />
           </Navbar.Brand>
           <Nav>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm">
+            <div className="container">
+              <div className="row">
+                <div className="col-sm">
                   <Link to="/">
                     <h3> Home</h3>
                   </Link>
                 </div>
-                <div class="col-sm">
+                <div className="col-sm">
                   <Link to="/ur">
                     <h3>User Registry</h3>
                   </Link>
                 </div>
-                <div class="col-sm">
+                <div className="col-sm">
                   <Link to="/cr">
                     <h3>Consumer Registry</h3>
+                  </Link>
+                </div>
+                <div className="col-sm">
+                  <Link to="/ipfs">
+                    <h3>IPFS</h3>
                   </Link>
                 </div>
               </div>
@@ -50,6 +56,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/ur" element={<UserPage />} />
           <Route path="/cr" element={<ConsumerPage />} />
+          <Route path="/ipfs" element={<IpfsPage />} />
         </Routes>
       </div>
     </Router>

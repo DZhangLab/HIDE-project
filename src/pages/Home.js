@@ -42,9 +42,12 @@ const Home = () => {
           <Link to="/cr" style={{ color: "#000" }}>
             Consumer Registry
           </Link>
+          <br></br>
+          <Link to="/ipfs" style={{ color: "#000" }}>
+            IPFS
+          </Link>
         </header>
       </div>
-
     </div>
   );
 };

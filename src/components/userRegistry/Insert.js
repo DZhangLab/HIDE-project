@@ -3,10 +3,14 @@ import { ethers } from "ethers";
 import "../../css/bootstrap.css";
 import QRCodeNew from "./qrcodeNew";
 import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
+import { create } from "ipfs-http-client";
+import { Buffer } from "buffer";
 
 // May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;
 const verificationNum = process.env.REACT_APP_VERIFICATION;
+
+const client = create("https://ipfs.infura.io:5001/api/v0");
 
 const Insert = () => {
   const [did, setDid] = useState("");
@@ -15,6 +19,7 @@ const Insert = () => {
   const [result, setResult] = useState("");
   const [show, setShow] = useState(false);
   const [src, setSrc] = useState("");
+  const [url, setUrl] = useState("")
 
   // uses metamask injected browser window to make sure user has a connected account
   async function requestAccount() {
@@ -49,6 +54,45 @@ const Insert = () => {
       return false;
     }
   }
+
+   function createAndSetDID() {
+    let date = new Date();
+    let formatted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" +date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds()+ "Z";
+
+    let data = {
+      "@context": "https://www.w3.org/ns/did/v1",
+      "id": `did:hide${userRegistryAddress}`,
+      "verifcationMethod": [
+        {
+          "id": `did:hide${userRegistryAddress}#controller`,
+          "type": "EcdsaSecp256k1RecoveryMethod2020",
+          "controller":`did:hide${userRegistryAddress}`,
+          "blockchainAccountId": `${userRegistryAddress}@eip155:1`
+        }
+      ],
+      "created": `${formatted}`,
+      "updated": `${formatted}`,
+      "deactivated": false,
+      "authentication": [`did:hide${userRegistryAddress}#controller`]
+
+    }
+ 
+    console.log("here1")
+    return data;
+  }
+
+  const handleSubmit = async () => {
+    let jsonDID = createAndSetDID()
+    console.log(jsonDID)
+    try {
+      const buf = Buffer.from(JSON.stringify(jsonDID), 'utf8');
+      const created = await client.add(buf);
+      const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+      setUrl(url);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   // call to the insert method of the smart contract
   async function insert() {
@@ -95,10 +139,11 @@ const Insert = () => {
       });
 
       try {
-        const transaction = await contract.insertUser(did, contractKey); //is there a way to get return value
-        // of non view function?
+        const transaction = await contract.insertUser(did, contractKey);
         await transaction.wait();
         setSubmit(did);
+        //creating json object and ipfs url
+        handleSubmit()
         console.log({ transaction });
       } catch (err) {
         console.log("Error: ", err);
@@ -141,6 +186,9 @@ const Insert = () => {
                 <h5 class="card-title">Transaction Data</h5>
                 <p class="card-text">{result}</p>
                 <QRCodeNew text={submit}/>
+              </div>
+              <div>
+                {url}
               </div>
             </div>
           ) : null}

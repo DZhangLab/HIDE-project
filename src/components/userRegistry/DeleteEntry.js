@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import "../../css/bootstrap.css";
-import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
+import UserRegistry from "../../artifacts/contracts/Registries/UserRegistry.sol/UserRegistry.json";
 
 // May need to pdate on deployment. This is the address the contract is deployed to.\
 const userRegistryAddress = process.env.REACT_APP_DEPLOY_ADDRESS;

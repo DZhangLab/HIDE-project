@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import "../../css/bootstrap.css";
-import ConsumerRegistry from "../../artifacts/contracts/ConsumerRegistry.sol/ConsumerRegistry.json";
+import ConsumerRegistry from "../../artifacts/contracts/Registries/ConsumerRegistry.sol/ConsumerRegistry.json";
 
 const consumerRegistryAddress = process.env.REACT_APP_CONSUMER_ADDRESS;
 const verificationNum = process.env.REACT_APP_VERIFICATION;

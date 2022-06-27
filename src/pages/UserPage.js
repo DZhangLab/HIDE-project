@@ -5,6 +5,7 @@ import {
   DeleteEntry,
   QRCode,
   UpdateEntry,
+  CheckUser,
 } from "../components";
 import "../css/bootstrap.css";
 import { Link } from "react-router-dom";
@@ -15,13 +16,15 @@ const UserPage = () => {
       <header className="App-header">
         <h1>User Registry Basic DApp</h1>
         <br></br>
-        <Insert></Insert>
+        <Insert />
         <br></br>
-        <GetEntry></GetEntry>
+        <CheckUser />
         <br></br>
-        <DeleteEntry></DeleteEntry>
+        <GetEntry />
         <br></br>
-        <GetTotalEntries></GetTotalEntries>
+        <DeleteEntry />
+        <br></br>
+        <GetTotalEntries />
       </header>
     </div>
   );

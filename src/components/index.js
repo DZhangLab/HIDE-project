@@ -3,6 +3,7 @@ export { default as DeleteEntry } from "./userRegistry/DeleteEntry";
 export { default as GetEntry } from "./userRegistry/GetEntry";
 export { default as GetTotalEntries } from "./userRegistry/GetTotalEntries";
 export { default as UpdateEntry } from "./userRegistry/UpdateEntry";
+export { default as CheckUser } from "./userRegistry/CheckUser";
 
 export { default as InsertConsumer } from "./consumerRegistry/InsertConsumer";
 export { default as GetConsumer } from "./consumerRegistry/GetConsumer";
@@ -14,6 +15,5 @@ export { default as TotalConsumers } from "./consumerRegistry/TotalConsumers";
 export { default as InsertVerifier } from "./verifierRegistry/InsertVerifier";
 export { default as DeleteVerifier } from "./verifierRegistry/DeleteVerifier";
 export { default as GetVerifier } from "./verifierRegistry/GetVerifier";
-
 
 export { default as QRCode } from "./userRegistry/qrcode";

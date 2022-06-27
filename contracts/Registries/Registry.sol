@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import {NullCheck} from "./utils/NullCheck.sol";
+import { NullCheck } from "../utils/NullCheck.sol";
 
 /**
  * @dev Contract for managing different types of registries.
@@ -35,6 +35,15 @@ contract Registry {
    */
   function getTotalEntries() public view returns (uint256) {
     return totalEntries;
+  }
+
+  /**
+   * @dev Verifies if a key exists in the registry.
+   *
+   * Returns a bool representing the existence of the given key.
+   */
+  function verifyEntry(string memory _key) public view returns (bool) {
+    return (!NullCheck.isNullString(registry[_key]));
   }
 
   /**

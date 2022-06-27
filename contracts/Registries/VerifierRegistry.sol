@@ -1,26 +1,26 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import {Base64} from "./libraries/Base64.sol";
 import {Registry} from "./Registry.sol";
+import {Base64} from "../libraries/Base64.sol";
 
 /**
- * @dev Contract for managing User Registries
+ * @dev Contract for managing Verifier Registries
  *
- * UserRegistry is an implementation of the Registry Contract
+ * VerifierRegistry is an implementation of the Registry Contract
  * supporting get, insert and delete operations.
  *
- * The dictionary structure of the registry maps did's to
- * the DID document generation contract keys. Both variables are
- * encoded in Base64.
+ * The dictionary structure of the registry maps verifier DIDs to
+ * the DID document key. Both variables are encoded in Base64.
  */
-contract UserRegistry is Registry {
+contract VerifierRegistry is Registry {
   /**
-   * @dev Get a user from the registry, given their did
+   * @dev Get a verifier from the registry, given their did
    *
-   * Returns a did-contractKey pair of the entry, or reverts with an error message
+   * Returns a (DID, DID Document Key) pair of the entry,
+   * or reverts with an error message
    */
-  function getUser(string memory _did)
+  function getVerifier(string memory _did)
     public
     view
     returns (string memory did, string memory contractKey)
@@ -32,13 +32,13 @@ contract UserRegistry is Registry {
   }
 
   /**
-   * @dev Insert a new user in the registry
+   * @dev Insert a new verifier in the registry
    *
    * Emits the EntryInserted event
    * Reverts with an error message if entry already exists
    * Returns the updated total number of entries
    */
-  function insertUser(string memory _did, string memory _contractKey)
+  function insertVerifier(string memory _did, string memory _contractKey)
     public
     returns (uint256)
   {
@@ -50,12 +50,12 @@ contract UserRegistry is Registry {
   }
 
   /**
-   * @dev Deletes a user from the registry.
+   * @dev Deletes a verifier from the registry.
    *
    * Emits EntryDeleted event
    * Returns true if the entry was successfully deleted.
    */
-  function deleteUser(string memory _did) public returns (bool) {
+  function deleteVerifier(string memory _did) public returns (bool) {
     return Registry.deleteEntry(Base64.encode(bytes(_did)));
   }
 }

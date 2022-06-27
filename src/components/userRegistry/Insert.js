@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import "../../css/bootstrap.css";
 import QRCodeNew from "./qrcodeNew";
-import UserRegistry from "../../artifacts/contracts/UserRegistry.sol/UserRegistry.json";
+import UserRegistry from "../../artifacts/contracts/Registries/UserRegistry.sol/UserRegistry.json";
 import { create } from "ipfs-http-client";
 import { Buffer } from "buffer";
 
@@ -19,7 +19,7 @@ const Insert = () => {
   const [result, setResult] = useState("");
   const [show, setShow] = useState(false);
   const [src, setSrc] = useState("");
-  const [url, setUrl] = useState("")
+  const [url, setUrl] = useState("");
 
   // uses metamask injected browser window to make sure user has a connected account
   async function requestAccount() {
@@ -55,37 +55,48 @@ const Insert = () => {
     }
   }
 
-   function createAndSetDID() {
+  function createAndSetDID() {
     let date = new Date();
-    let formatted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" +date.getHours() + ":" + date.getMinutes()+ ":" + date.getSeconds()+ "Z";
+    let formatted =
+      date.getFullYear() +
+      "-" +
+      (date.getMonth() + 1) +
+      "-" +
+      date.getDate() +
+      "T" +
+      date.getHours() +
+      ":" +
+      date.getMinutes() +
+      ":" +
+      date.getSeconds() +
+      "Z";
 
     let data = {
       "@context": "https://www.w3.org/ns/did/v1",
-      "id": `did:hide${userRegistryAddress}`,
-      "verifcationMethod": [
+      id: `did:hide${userRegistryAddress}`,
+      verifcationMethod: [
         {
-          "id": `did:hide${userRegistryAddress}#controller`,
-          "type": "EcdsaSecp256k1RecoveryMethod2020",
-          "controller":`did:hide${userRegistryAddress}`,
-          "blockchainAccountId": `${userRegistryAddress}@eip155:1`
-        }
+          id: `did:hide${userRegistryAddress}#controller`,
+          type: "EcdsaSecp256k1RecoveryMethod2020",
+          controller: `did:hide${userRegistryAddress}`,
+          blockchainAccountId: `${userRegistryAddress}@eip155:1`,
+        },
       ],
-      "created": `${formatted}`,
-      "updated": `${formatted}`,
-      "deactivated": false,
-      "authentication": [`did:hide${userRegistryAddress}#controller`]
+      created: `${formatted}`,
+      updated: `${formatted}`,
+      deactivated: false,
+      authentication: [`did:hide${userRegistryAddress}#controller`],
+    };
 
-    }
- 
-    console.log("here1")
+    console.log("here1");
     return data;
   }
 
   const handleSubmit = async () => {
-    let jsonDID = createAndSetDID()
-    console.log(jsonDID)
+    let jsonDID = createAndSetDID();
+    console.log(jsonDID);
     try {
-      const buf = Buffer.from(JSON.stringify(jsonDID), 'utf8');
+      const buf = Buffer.from(JSON.stringify(jsonDID), "utf8");
       const created = await client.add(buf);
       const url = `https://ipfs.infura.io/ipfs/${created.path}`;
       setUrl(url);
@@ -96,7 +107,6 @@ const Insert = () => {
 
   // call to the insert method of the smart contract
   async function insert() {
-
     // making sure input is not empty
     if (!did || !contractKey) {
       console.log("Insert values are empty");
@@ -143,7 +153,7 @@ const Insert = () => {
         await transaction.wait();
         setSubmit(did);
         //creating json object and ipfs url
-        handleSubmit()
+        handleSubmit();
         console.log({ transaction });
       } catch (err) {
         console.log("Error: ", err);
@@ -185,11 +195,9 @@ const Insert = () => {
               <div class="card-body">
                 <h5 class="card-title">Transaction Data</h5>
                 <p class="card-text">{result}</p>
-                <QRCodeNew text={submit}/>
+                <QRCodeNew text={submit} />
               </div>
-              <div>
-                {url}
-              </div>
+              <div>{url}</div>
             </div>
           ) : null}
         </div>

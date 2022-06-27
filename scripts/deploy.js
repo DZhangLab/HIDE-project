@@ -3,16 +3,35 @@
 const hre = require("hardhat");
 
 async function main() {
+  //We first deploy the libraries/utils
   const NullCheckLib = await hre.ethers.getContractFactory("NullCheck");
   const nullCheckLib = await NullCheckLib.deploy();
+
+  const RoleCheckLib = await hre.ethers.getContractFactory("RoleCheck");
+  const roleCheckLib = await RoleCheckLib.deploy();
+
+  //Next we deploy the verifier registry as it is needed to deploy the user registry
+  // Deploying the VerifierRegistry
+  const VerifierRegistry = await hre.ethers.getContractFactory(
+    "VerifierRegistry",
+    {
+      libraries: {
+        NullCheck: nullCheckLib.address,
+      },
+    }
+  );
+  const verifierRegistry = await VerifierRegistry.deploy();
+  await verifierRegistry.deployed();
+  console.log("Verifier registry deployed to:", verifierRegistry.address);
 
   // Deploying the UserRegistry
   const UserRegistry = await hre.ethers.getContractFactory("UserRegistry", {
     libraries: {
       NullCheck: nullCheckLib.address,
+      RoleCheck: roleCheckLib.address,
     },
   });
-  const userRegistry = await UserRegistry.deploy();
+  const userRegistry = await UserRegistry.deploy(verifierRegistry.address);
 
   // Deploying the ConsumerRegistry
   const ConsumerRegistry = await hre.ethers.getContractFactory(
@@ -25,27 +44,13 @@ async function main() {
   );
   const consumerRegistry = await ConsumerRegistry.deploy();
 
-  // Deploying the VerifierRegistry
-  const VerifierRegistry = await hre.ethers.getContractFactory(
-    "VerifierRegistry",
-    {
-      libraries: {
-        NullCheck: nullCheckLib.address,
-      },
-    }
-  );
-  const verifierRegistry = await VerifierRegistry.deploy();
-
-  // Letting user know the contracts are deployed 
+  // Letting user know the contracts are deployed
 
   await userRegistry.deployed();
   console.log("User registry deployed to:", userRegistry.address);
 
   await consumerRegistry.deployed();
   console.log("Consumer registry deployed to:", consumerRegistry.address);
-
-  await verifierRegistry.deployed();
-  console.log("Verifier registry deployed to:", verifierRegistry.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

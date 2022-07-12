@@ -4,6 +4,7 @@ import UserPage from "./pages/UserPage";
 import ConsumerPage from "./pages/ConsumerPage";
 import VerifierPage from "./pages/VerifierPage";
 import IpfsPage from "./pages/IpfsPage";
+import ControllerPage from "./pages/ControllerPage";
 import logo from "./images/hidelogo.png";
 import "./css/bootstrap.css";
 import { Navbar, Nav } from "react-bootstrap";
@@ -53,6 +54,11 @@ const App = () => {
                     <h3>IPFS</h3>
                   </Link>
                 </div>
+                <div className="col-sm">
+                  <Link to="/c">
+                    <h3>Controller</h3>
+                  </Link>
+                </div>
               </div>
             </div>
           </Nav>
@@ -64,6 +70,7 @@ const App = () => {
           <Route path="/cr" element={<ConsumerPage />} />
           <Route path="/vr" element={<VerifierPage />} />
           <Route path="/ipfs" element={<IpfsPage />} />
+          <Route path="/c" element={<ControllerPage />} />
         </Routes>
       </div>
     </Router>

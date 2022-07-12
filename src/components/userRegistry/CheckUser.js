@@ -26,6 +26,7 @@ const CheckUser = () => {
         provider
       );
       try {
+        console.log(did);
         const data = await contract.checkUser(did);
         console.log(data);
         if (data) {

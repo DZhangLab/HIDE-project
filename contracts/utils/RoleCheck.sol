@@ -42,7 +42,19 @@ library RoleCheck {
     }
   }
 
+  function verifyUser(string memory _did, UserRegistry ur) public view returns (bool){
+    return (ur.verifyEntry(Base64.encode(bytes(_did))));
+  }
+
+  function verifyConsumer(string memory _did, ConsumerRegistry cr) public view returns (bool){
+    return (cr.verifyEntry(Base64.encode(bytes(_did))));
+  }
+
   function verifyVerifier(string memory _did, VerifierRegistry vr) public view returns (bool){
     return (vr.verifyEntry(Base64.encode(bytes(_did))));
+  }
+
+    function verifyDelegate(string memory _did, DelegateRegistry dr) public view returns (bool){
+    return (dr.verifyEntry(Base64.encode(bytes(_did))));
   }
 }

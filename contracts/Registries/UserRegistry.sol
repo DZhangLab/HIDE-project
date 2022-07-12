@@ -5,7 +5,6 @@ import {Base64} from "../libraries/Base64.sol";
 import {Registry} from "./Registry.sol";
 
 import {VerifierRegistry} from "../Registries/VerifierRegistry.sol";
-import {RoleCheck} from "../utils/RoleCheck.sol";
 
 /**
  * @dev Contract for managing User Registries
@@ -59,7 +58,6 @@ contract UserRegistry is Registry {
     public
     returns (uint256)
   {
-    require(checkUser(_did));
     return
       Registry.insertEntry(
         Base64.encode(bytes(_did)),
@@ -77,10 +75,4 @@ contract UserRegistry is Registry {
     return Registry.deleteEntry(Base64.encode(bytes(_did)));
   }
 
-  function checkUser (string memory _did) public view returns (bool){
-    return RoleCheck.verifyVerifier(
-        _did,
-        verifierRegistry
-      );
-  }
 }

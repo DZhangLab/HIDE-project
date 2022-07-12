@@ -2,6 +2,7 @@ import "../css/bootstrap.css";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  console.log("Testing" + process.env.REACT_APP_TEST_VAR);
   return (
     <div class="container">
       <div className="App">

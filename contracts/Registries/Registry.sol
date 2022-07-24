@@ -18,6 +18,9 @@ contract Registry {
 
   // Our registry is actually a map from a key to a value
   mapping(string => string) registry;
+
+  //TODO: Create a mapping for keys
+
   uint256 totalEntries;
 
   constructor() {

@@ -14,6 +14,10 @@ import {Base64} from "../libraries/Base64.sol";
  * the DID document key. Both variables are encoded in Base64.
  */
 contract VerifierRegistry is Registry {
+
+  // Dynamic array to store the 
+  string [] dids;
+
   /**
    * @dev Get a verifier from the registry, given their did
    *
@@ -42,6 +46,7 @@ contract VerifierRegistry is Registry {
     public
     returns (uint256)
   {
+    dids.push(Base64.encode(bytes(_did)));
     return
       Registry.insertEntry(
         Base64.encode(bytes(_did)),
@@ -58,4 +63,16 @@ contract VerifierRegistry is Registry {
   function deleteVerifier(string memory _did) public returns (bool) {
     return Registry.deleteEntry(Base64.encode(bytes(_did)));
   }
+
+  function getAll() public view returns(string [] memory){
+        string [] memory contractKeys = new string[](dids.length);
+        string memory did;
+        string memory contractKey;
+        for(uint i=0; i< dids.length; i++){
+          (did, contractKey) = Registry.getEntry((dids[i]));
+            contractKeys[i] = string(Base64.decode(did));
+        }
+        return contractKeys;
+    }
+
 }

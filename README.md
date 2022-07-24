@@ -12,7 +12,11 @@ npm i
 ```shell
 npx hardhat node
 ```
-3) In another terminal. To run locally enter the command
+3) In another terminal. Compile the Solidity files
+```shell
+npx hardhat compile
+```
+Then to run locally enter the command
 ```shell
 npx hardhat run scripts/deploy.js --network localhost
 ```

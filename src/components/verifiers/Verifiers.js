@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Box } from "@material-ui/core";
 import useStyles from "./styles.js";
 import Verifier from "./verifier/Verifier.js";
 
@@ -45,18 +45,21 @@ const Verifiers = () => {
       Verifiers
       <br />
       <Button onClick={getVerifiers}>Get Verifiers</Button>
-      <Grid
-        className={classes.container}
-        container
-        allignment="stretch"
-        spacing={1}
-      >
-        {verifierArray.map((verifier) => (
-          <Grid item xs={12} sm={12}>
-            <Verifier verifier={verifier} />
-          </Grid>
-        ))}
-      </Grid>
+      <Box m={2}>
+        <Grid
+          className={classes.container}
+          container
+          allignment="stretch"
+          spacing={1}
+          padding={2}
+        >
+          {verifierArray.map((verifier) => (
+            <Grid item sm={4}>
+              <Verifier verifier={verifier} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </div>
   );
 };

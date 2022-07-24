@@ -70,7 +70,7 @@ contract VerifierRegistry is Registry {
         string memory contractKey;
         for(uint i=0; i< dids.length; i++){
           (did, contractKey) = Registry.getEntry((dids[i]));
-            contractKeys[i] = string(Base64.decode(did));
+            contractKeys[i] = string(Base64.decode(contractKey));
         }
         return contractKeys;
     }
